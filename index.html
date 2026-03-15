@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adult Artist | 翻譯家 / 內容創作者</title>
+  
+  <!-- 載入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- 載入 React 核心庫 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- 載入 Babel (用來在瀏覽器中即時編譯 JSX) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    /* 自訂選取文字的顏色 */
+    ::selection {
+      background-color: #00E5FF;
+      color: #110C0A;
+    }
+    body {
+      background-color: #251A15;
+    }
+  </style>
+</head>
+<body>
+  <!-- React 應用程式會掛載在這裡 -->
+  <div id="root"></div>
+
+  <!-- React 程式碼開始 -->
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // ==========================================
+    // 圖示組件 (取代原本的 lucide-react，確保單一檔案能直接運作)
+    // ==========================================
+    const Icon = ({ children, className }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        {children}
+      </svg>
+    );
+    const Github = (p) => <Icon {...p}><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></Icon>;
+    const Twitter = (p) => <Icon {...p}><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></Icon>;
+    const Mail = (p) => <Icon {...p}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></Icon>;
+    const ChevronRight = (p) => <Icon {...p}><path d="m9 18 6-6-6-6"/></Icon>;
+    const ChevronDown = (p) => <Icon {...p}><path d="m6 9 6 6 6-6"/></Icon>;
+    const Terminal = (p) => <Icon {...p}><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></Icon>;
+    const BookOpen = (p) => <Icon {...p}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></Icon>;
+    const User = (p) => <Icon {...p}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></Icon>;
+    const Cpu = (p) => <Icon {...p}><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></Icon>;
+    const ArrowLeft = (p) => <Icon {...p}><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></Icon>;
+    const AlertTriangle = (p) => <Icon {...p}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></Icon>;
+
+    // ==========================================
+    // 1. 資料區塊 (Data)
+    // ==========================================
+    const personalInfo = {
+      name: "Adult Artist",
+      title: "翻譯家 / 內容創作者",
+      bio: "哈囉！我是 Adult Artist，一名用翻譯幫助大家理解成人內容的藝術家。我深信每件作品背後都有其獨特的魅力與故事，透過精準且富有溫度的在地化翻譯，我希望能打破語言的隔閡，帶領大家更深入探索這些作品背後的藝術境界。",
+      skills: ["日中翻譯", "英中翻譯", "在地化 (Localization)", "文化解析", "內容創作", "字體排印"]
+    };
+
+    const articlesData = [
+      { id: 1, title: "如何精準拿捏成人向作品的翻譯語氣？", date: "2026-03-10", excerpt: "在進行在地化翻譯時，語氣的轉換往往比字面上的意思更重要。這篇文章將分享我在處理不同風格作品時的實用技巧與考量...", category: "翻譯心得" },
+      { id: 2, title: "打破語言隔閡：那些難以直譯的日文擬聲詞", date: "2026-02-25", excerpt: "日文中有許多豐富的擬聲詞與擬態詞，在成人內容中更是扮演著關鍵角色。來聊聊我是如何將這些詞彙轉換成自然生動的中文。", category: "語言解析" },
+      { id: 3, title: "從文本到藝術：我的翻譯工作流程大公開", date: "2026-01-18", excerpt: "許多人好奇翻譯一整本作品需要花費多少時間？今天就來開箱我常用的翻譯工具，以及從拿到原始檔到最終產出的完整工作流程。", category: "工作日常" }
+    ];
+
+    // ==========================================
+    // 2. 文章內容組件
+    // ==========================================
+    const Article1Content = () => (
+      <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 animate-[fadeIn_0.7s_ease-out]">
+        <p className="text-xl text-[#E8D8CE] font-medium leading-normal">
+          在翻譯成人向作品時，許多人以為只要把台詞的字面意思翻出來就好。但實際上，語氣的拿捏才是讓讀者（或玩家）真正沉浸其中的靈魂所在。這篇文章將帶大家一窺我在處理不同角色與情境時的思考過程。
+        </p>
+        <h2 className="text-2xl font-bold text-[#00E5FF] mt-12 mb-6 flex items-center gap-2">
+          <span className="text-[#FF7A50]">#</span> 角色設定的解構與重建
+        </h2>
+        <p>
+          當我們拿到一份全新的文本，第一步絕對不是直接開始翻譯，而是「解構角色」。傲嬌、冷酷、溫柔、天然呆... 每個屬性在日文（或英文）中都有相對應的慣用語與語尾助詞。如何將這些細微的差異轉化為符合中文語境，同時又保留原汁原味的魅力，就是譯者必須面對的第一個挑戰。
+        </p>
+        <blockquote className="border-l-4 border-[#FF7A50] pl-6 py-2 my-8 bg-[#1A120E]/50 rounded-r-lg italic text-[#E8D8CE]">
+          「翻譯不只是語言的轉換，更是文化的對接與情緒的重塑。我們是在用另一種語言，重新演出一次原作者的劇本。」
+        </blockquote>
+        <h2 className="text-2xl font-bold text-[#00E5FF] mt-12 mb-6 flex items-center gap-2">
+          <span className="text-[#FF7A50]">#</span> 情境張力的堆疊
+        </h2>
+        <p>
+          在成人內容中，情境的鋪陳往往伴隨著情感與感官的逐漸升溫。這時候，詞彙的選擇就必須跟著「循序漸進」。
+        </p>
+        <ul className="list-disc pl-6 space-y-3 text-[#C4B2A7] marker:text-[#FF7A50]">
+          <li><strong>初期階段：</strong> 使用較為含蓄、暗示性的詞彙，營造曖昧的氛圍。</li>
+          <li><strong>發展階段：</strong> 語氣開始變得急促，可以使用更多的動詞與具象化的形容詞。</li>
+          <li><strong>高潮階段：</strong> 放棄過度修飾的長句，改用短促、直接、充滿爆發力的字眼。</li>
+        </ul>
+      </article>
+    );
+
+    const Article2Content = () => {
+      const [revealLevel, setRevealLevel] = useState(0);
+      return (
+        <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 animate-[fadeIn_0.7s_ease-out]">
+          <p className="text-xl text-[#E8D8CE] font-medium leading-normal">
+            日文中有一類極具特色的詞彙系統——「擬聲語」與「擬態語」。它們在成人內容中出現的頻率極高，不僅能傳遞聲音，更能傳遞溫度、濕度與觸感。但要把這些詞彙翻成中文，往往讓人絞盡腦汁。
+          </p>
+          <h2 className="text-2xl font-bold text-[#00E5FF] mt-12 mb-6 flex items-center gap-2">
+            <span className="text-[#FF7A50]">#</span> 不只是聲音，更是「觸感」的延伸
+          </h2>
+          <p>
+            舉例來說，常出現的「ぬるぬる (Nururunu)」或「びちゃびちゃ (Bichabicha)」。如果你只翻成「滑溜溜」或「濕答答」，雖然意思沒錯，但總覺得少了點畫面感與色氣。
+          </p>
+          <p>
+            在中文裡，我們不習慣用疊字來表達這麼具體的感官體驗。因此，我們需要透過前後文的「補述」來強化這些擬聲詞的功能。例如將純粹的聲音描述，轉化為動作的黏滯感或水聲的迴盪感。
+          </p>
+          <div className="bg-[#150F0D] border border-[#3E2C24] rounded-xl p-6 my-8 flex items-start gap-4 shadow-lg">
+            <Terminal className="w-6 h-6 text-[#00E5FF] mt-1 flex-shrink-0" />
+            <div>
+              <h4 className="text-[#E8D8CE] font-bold mb-2 m-0">翻譯日誌 #042</h4>
+              <p className="text-sm m-0">有時候遇到真的無法用簡短中文對應的擬聲詞，我會選擇「意譯」。與其硬翻一個生硬的狀聲詞，不如直接描述那個聲音帶給角色的心理感受。</p>
+            </div>
+          </div>
+          <h2 className="text-2xl font-bold text-[#00E5FF] mt-12 mb-6 flex items-center gap-2">
+            <span className="text-[#FF7A50]">#</span> 結語區塊
+          </h2>
+          <div className="bg-[#1A120E] border-2 border-[#3E2C24] rounded-xl p-6 my-8 relative overflow-hidden transition-all duration-500">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#00E5FF] via-[#FF7A50] to-[#00E5FF] opacity-50"></div>
+            <div className="flex items-center gap-3 mb-4">
+              <AlertTriangle className="w-6 h-6 text-[#FF7A50]" />
+              <h3 className="text-[#E8D8CE] text-xl font-bold m-0">機密翻譯心得：最終奧義</h3>
+            </div>
+            <p className="mb-6">接下來的結語涉及了一點我個人的「翻譯通靈技巧」，可能有點顛覆常理...</p>
+            <div className="space-y-4">
+              {revealLevel === 0 && (
+                <button onClick={() => setRevealLevel(1)} className="w-full py-4 bg-[#251A15] hover:bg-[#362720] border border-[#3E2C24] hover:border-[#FF7A50]/50 rounded-lg flex items-center justify-center gap-2 text-[#FF7A50] font-bold transition-all group">
+                  點擊展開結語 <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
+                </button>
+              )}
+              {revealLevel >= 1 && (
+                <div className="animate-[slideIn_0.3s_ease-out]">
+                  <div className="p-4 bg-[#251A15] border-l-4 border-[#00E5FF] rounded-r-lg mb-4">
+                    <p className="text-[#00E5FF] font-bold m-0">系統提示：你真的還要看嗎？這真的很主觀喔。</p>
+                  </div>
+                  {revealLevel === 1 && (
+                    <button onClick={() => setRevealLevel(2)} className="w-full py-3 bg-[#362720] hover:bg-[#4A362D] border border-[#3E2C24] rounded-lg text-[#E8D8CE] transition-all">
+                      確認，請繼續展開
+                    </button>
+                  )}
+                </div>
+              )}
+              {revealLevel >= 2 && (
+                <div className="animate-[slideIn_0.3s_ease-out]">
+                  <div className="p-4 bg-[#251A15] border-l-4 border-[#FF7A50] rounded-r-lg mb-4">
+                    <p className="text-[#FF7A50] font-bold m-0">最後警告：你真的還要繼續往下看嗎？看完就回不去了喔！</p>
+                  </div>
+                  {revealLevel === 2 && (
+                    <button onClick={() => setRevealLevel(3)} className="w-full py-3 bg-gradient-to-r from-[#FF7A50] to-[#E0443E] text-[#110C0A] font-extrabold rounded-lg hover:opacity-90 transition-all shadow-[0_0_15px_rgba(255,122,80,0.4)]">
+                      少廢話，給我看真正的結語！
+                    </button>
+                  )}
+                </div>
+              )}
+              {revealLevel === 3 && (
+                <div className="animate-[fadeIn_0.5s_ease-out] mt-6 pt-6 border-t border-[#3E2C24]">
+                  <p className="text-[#E8D8CE] font-bold text-lg mb-4">真正的翻譯奧義，其實是「放下字典，成為劇中人」。</p>
+                  <p className="mb-4">當你徹底把自己的意識沉浸到那個場景中，感受角色的呼吸、動作的頻率與周圍的空氣。那時候，大腦自然就會浮現出最適合的中文詞彙。這時候的翻譯已經不是語言學，而是一種近乎通靈的「角色扮演」。</p>
+                  <p className="text-[#00E5FF] italic">感謝你堅持點到最後，希望這份「不務正業」的心法對你有所啟發！</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </article>
+      );
+    };
+
+    const Article3Content = () => {
+      const [isConclusionRevealed, setIsConclusionRevealed] = useState(false);
+      return (
+        <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 animate-[fadeIn_0.7s_ease-out]">
+          <p className="text-xl text-[#E8D8CE] font-medium leading-normal">
+            許多人好奇，翻譯一整部成人向作品到底需要花費多少時間？是只要把原文丟進翻譯軟體修一修就好了嗎？今天就來無私分享我的實際工作流程，以及那些陪伴我度過無數個熬夜趕稿夜晚的好用工具與秘密武器！
+          </p>
+          <h2 className="text-2xl font-bold text-[#00E5FF] mt-12 mb-6 flex items-center gap-2">
+            <span className="text-[#FF7A50]">#</span> 雙螢幕與「無干擾」環境
+          </h2>
+          <p>翻譯工作非常需要一心多用。我的標準配置是左邊螢幕顯示原文檔，右邊螢幕則是我的翻譯工作區。</p>
+          <p>此外，我也會準備一個專屬的「詞彙表 (Glossary)」。對於系列作或是擁有複雜世界觀的作品，保持專有名詞的統一性是非常重要的。這能省下後期校稿時大量的痛苦。</p>
+          <h2 className="text-2xl font-bold text-[#00E5FF] mt-12 mb-6 flex items-center gap-2">
+            <span className="text-[#FF7A50]">#</span> 翻譯的三階段煉成陣
+          </h2>
+          <ul className="list-decimal pl-6 space-y-4 text-[#C4B2A7] marker:text-[#FF7A50]">
+            <li><strong className="text-[#E8D8CE]">初譯（骨架）：</strong> 不去管文句優美與否，先以最快的速度將字面上的意思全部轉換為中文，確保沒有漏掉任何一句話。</li>
+            <li><strong className="text-[#E8D8CE]">在地化潤飾（血肉）：</strong> 這是最花時間的一步。我會關掉原文，單純看著剛剛翻好的中文，把自己當成一般讀者來閱讀。哪裡念起來卡卡的？哪個擬聲詞不夠生動？這時候就會進行大幅度的改寫。</li>
+            <li><strong className="text-[#E8D8CE]">最終校對（靈魂）：</strong> 放空一天後，再回來重新看一次稿子。有時候剛翻完會有一種「盲點」，隔天再看才能抓出那些微小的情緒斷層。</li>
+          </ul>
+          <h2 className="text-2xl font-bold text-[#00E5FF] mt-12 mb-6 flex items-center gap-2">
+            <span className="text-[#FF7A50]">#</span> 結語
+          </h2>
+          <p className="text-[#917E75] text-sm animate-pulse mb-2 font-mono">
+            // 系統提示：下方檢測到隱藏的未加密數據。請嘗試點擊下方的空白區域以進行解碼...
+          </p>
+          <div onClick={() => setIsConclusionRevealed(true)} className={`w-full transition-all duration-1000 ease-in-out cursor-pointer ${isConclusionRevealed ? "bg-[#1A120E] border border-[#3E2C24] p-6 sm:p-8 rounded-xl shadow-[0_0_20px_rgba(0,229,255,0.05)]" : "h-40 bg-transparent border border-dashed border-transparent hover:border-[#3E2C24]/30 rounded-xl"}`}>
+            {isConclusionRevealed ? (
+              <div className="animate-[fadeIn_0.7s_ease-out]">
+                <h4 className="text-xl text-[#FF7A50] font-bold mb-4 flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5" />
+                  解碼成功：關於翻譯的本質
+                </h4>
+                <p className="mb-4">說了這麼多工具與技巧，但其實在無數個孤獨敲打鍵盤的深夜裡，真正支撐我把生硬文本轉化為動人文字的，是「愛」。</p>
+                <p className="mb-0 text-[#E8D8CE] font-medium">技術可以靠時間積累，但希望讓更多人跨越語言的牆，去體會這部作品有多麼美好、多麼讓人心跳加速的這份「同理心」，才是身為一個在地化翻譯者最珍貴的寶物。希望這篇文章有解答到你的好奇心！</p>
+              </div>
+            ) : (
+              <div className="w-full h-full flex items-center justify-center"></div>
+            )}
+          </div>
+        </article>
+      );
+    };
+
+    const ArticlePage = ({ article, onBack }) => {
+      useEffect(() => { window.scrollTo(0, 0); }, [article.id]);
+      const renderArticleContent = () => {
+        switch (article.id) {
+          case 1: return <Article1Content />;
+          case 2: return <Article2Content />;
+          case 3: return <Article3Content />;
+          default: return <p>文章找不到...</p>;
+        }
+      };
+      return (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-[fadeIn_0.3s_ease-out]">
+          <button onClick={onBack} className="inline-flex items-center text-[#917E75] hover:text-[#00E5FF] transition-colors mb-8 group font-medium">
+            <ArrowLeft className="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" /> 返回列表
+          </button>
+          <header className="mb-12 border-b border-[#3E2C24] pb-8">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-sm font-semibold px-3 py-1 bg-[#1A120E] text-[#00E5FF] rounded-md border border-[#3E2C24]">{article.category}</span>
+              <span className="text-sm font-mono text-[#917E75]">{article.date}</span>
+            </div>
+            <h1 className="text-3xl md:text-5xl font-extrabold text-[#F5ECE6] leading-tight mb-6 drop-shadow-sm">{article.title}</h1>
+            <div className="flex items-center gap-3 text-[#C4B2A7]">
+              <div className="w-10 h-10 rounded-full bg-[#362720] flex items-center justify-center border border-[#4A362D]">
+                <User className="w-5 h-5 text-[#FF7A50]" />
+              </div>
+              <div>
+                <div className="font-medium text-[#E8D8CE]">{personalInfo.name}</div>
+                <div className="text-xs text-[#917E75]">發布於個人日誌</div>
+              </div>
+            </div>
+          </header>
+          {renderArticleContent()}
+          <div className="mt-16 pt-8 border-t border-[#3E2C24] flex justify-between items-center">
+            <button onClick={onBack} className="text-[#00E5FF] hover:text-[#FF7A50] font-medium transition-colors">← 閱讀其他文章</button>
+            <div className="flex gap-4">
+              <button className="w-10 h-10 rounded-full bg-[#1A120E] border border-[#3E2C24] flex items-center justify-center text-[#917E75] hover:text-[#00E5FF] hover:border-[#00E5FF] transition-all">
+                <Twitter className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const App = () => {
+      const [currentView, setCurrentView] = useState('home');
+
+      const renderHome = () => (
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 animate-[fadeIn_0.5s_ease-out]">
+          <section className="relative rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(255,122,80,0.1)] border border-[#4A362D] group">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#251A15] via-[#251A15]/40 to-transparent z-10"></div>
+            <img src="https://drive.google.com/thumbnail?id=1Xf1vkkC26rL4xf8og3ejL1tF0ELCUJlp&sz=w1366" alt="Adult Artist's Workspace" className="w-full h-[45vh] md:h-[65vh] object-cover object-center transform transition-transform duration-1000 group-hover:scale-105" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-20">
+              <div className="inline-flex items-center gap-2 bg-[#00E5FF]/10 border border-[#00E5FF]/30 text-[#00E5FF] font-mono font-bold px-3 py-1 rounded-sm text-sm mb-4 backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-[#00E5FF] animate-pulse"></span> SYSTEM ONLINE //
+              </div>
+              <h1 className="text-3xl md:text-5xl font-extrabold text-[#F5ECE6] mb-3 drop-shadow-lg">探索語言與藝術的交界</h1>
+              <p className="text-[#C4B2A7] md:text-lg max-w-2xl drop-shadow-md">用翻譯為作品注入靈魂，帶你理解更深層的故事。</p>
+            </div>
+          </section>
+
+          <section id="about" className="scroll-mt-20">
+            <div className="flex items-center gap-2 mb-8">
+              <User className="w-6 h-6 text-[#FF7A50]" />
+              <h2 className="text-2xl font-bold text-[#F5ECE6]">關於我</h2>
+              <div className="h-px bg-[#3E2C24] flex-grow ml-4"></div>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8 items-start">
+              <div className="md:col-span-2 space-y-6 text-lg leading-relaxed text-[#C4B2A7]">
+                <p>{personalInfo.bio}</p>
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-[#E8D8CE] font-semibold flex items-center gap-2">
+                    <Cpu className="w-5 h-5 text-[#00E5FF]" /> 專業領域
+                  </h3>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {personalInfo.skills.map((skill, index) => (
+                      <span key={index} className="bg-[#362720] border border-[#4A362D] text-[#E8D8CE] px-3 py-1.5 rounded-md text-sm font-medium hover:border-[#00E5FF] hover:text-[#00E5FF] transition-all cursor-default shadow-sm">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="bg-[#150F0D] border border-[#3E2C24] rounded-xl p-6 font-mono text-sm shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#00E5FF] to-[#FF7A50]"></div>
+                <div className="flex gap-2 mb-6">
+                  <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]"></div>
+                  <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]"></div>
+                </div>
+                <div className="space-y-2 text-[#C4B2A7]">
+                  <p><span className="text-[#00E5FF]">const</span> <span className="text-[#FF7A50]">creator</span> = {'{'}</p>
+                  <p className="pl-4">name: <span className="text-[#AEE684]">'{personalInfo.name}'</span>,</p>
+                  <p className="pl-4">role: <span className="text-[#AEE684]">'{personalInfo.title}'</span>,</p>
+                  <p className="pl-4">status: <span className="text-[#AEE684]">'Translating && Creating'</span></p>
+                  <p>{'}'};</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="articles" className="scroll-mt-20">
+            <div className="flex items-center gap-2 mb-8">
+              <BookOpen className="w-6 h-6 text-[#FF7A50]" />
+              <h2 className="text-2xl font-bold text-[#F5ECE6]">近期文章</h2>
+              <div className="h-px bg-[#3E2C24] flex-grow ml-4"></div>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {articlesData.map((article) => (
+                <article key={article.id} className="bg-[#362720]/60 border border-[#4A362D] rounded-xl p-6 flex flex-col h-full hover:bg-[#362720] hover:border-[#FF7A50]/60 transition-all duration-300 group shadow-md hover:shadow-lg hover:-translate-y-1">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-xs font-semibold px-2 py-1 bg-[#1A120E] text-[#00E5FF] rounded-md border border-[#3E2C24]">{article.category}</span>
+                    <span className="text-sm font-mono text-[#917E75]">{article.date}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-[#F5ECE6] mb-3 group-hover:text-[#FF7A50] transition-colors leading-snug">{article.title}</h3>
+                  <p className="text-[#C4B2A7] text-sm mb-6 flex-grow leading-relaxed">{article.excerpt}</p>
+                  <button onClick={() => setCurrentView(article.id)} className="inline-flex items-center text-left text-sm font-semibold text-[#E8D8CE] group-hover:text-[#00E5FF] transition-colors mt-auto w-max">
+                    閱讀更多 <ChevronRight className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </article>
+              ))}
+            </div>
+          </section>
+        </main>
+      );
+
+      return (
+        <div className="min-h-screen font-sans text-[#E8D8CE]">
+          <nav className="sticky top-0 z-50 bg-[#1A120E]/90 backdrop-blur-md border-b border-[#3E2C24]">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16">
+                <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer group" onClick={() => setCurrentView('home')}>
+                  <Terminal className="w-6 h-6 text-[#00E5FF] group-hover:text-[#FF7A50] transition-colors" />
+                  <span className="font-mono font-bold text-xl text-[#F5ECE6] tracking-wider group-hover:text-[#FF7A50] transition-colors">ADULT_ARTIST</span>
+                </div>
+                {currentView === 'home' && (
+                  <div className="hidden md:block">
+                    <div className="ml-10 flex items-baseline space-x-8">
+                      <a href="#about" className="hover:text-[#FF7A50] px-3 py-2 rounded-md text-sm font-medium transition-colors">關於我</a>
+                      <a href="#articles" className="hover:text-[#FF7A50] px-3 py-2 rounded-md text-sm font-medium transition-colors">文章</a>
+                      <a href="#contact" className="hover:text-[#FF7A50] px-3 py-2 rounded-md text-sm font-medium transition-colors">聯絡我</a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </nav>
+          
+          {currentView === 'home' ? renderHome() : <ArticlePage article={articlesData.find(a => a.id === currentView)} onBack={() => setCurrentView('home')} />}
+          
+          <footer id="contact" className="border-t border-[#3E2C24] mt-24 bg-[#1A120E]">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
+              <div className="font-mono text-[#917E75] text-sm">
+                © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
+              </div>
+              <div className="flex items-center space-x-6">
+                <a href="#github" className="text-[#917E75] hover:text-[#00E5FF] transition-colors">
+                  <Github className="w-5 h-5" />
+                </a>
+                <a href="#twitter" className="text-[#917E75] hover:text-[#00E5FF] transition-colors">
+                  <Twitter className="w-5 h-5" />
+                </a>
+                <a href="#email" className="text-[#917E75] hover:text-[#FF7A50] transition-colors">
+                  <Mail className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </footer>
+        </div>
+      );
+    };
+
+    // 將 App 渲染到畫面上
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+
+  <!-- Tailwind 動畫設定補充 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            slideIn: { '0%': { opacity: '0', transform: 'translateY(-10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>

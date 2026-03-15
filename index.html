@@ -24,6 +24,36 @@
     body {
       background-color: #251A15;
     }
+
+    /* ==========================================
+       自訂 CSS 動畫區塊 
+       在這裡修改動畫，就不需要去動下面的複雜程式碼了！
+       ========================================== */
+    
+    /* 1. 定義動畫的變化過程 (@keyframes) */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 2. 將動畫綁定到 class 類別上 */
+    .fade-in-fast { 
+      animation: fadeIn 0.3s ease-out forwards; 
+    }
+    .fade-in { 
+      animation: fadeIn 0.5s ease-out forwards; 
+    }
+    .fade-in-slow { 
+      animation: fadeIn 0.7s ease-out forwards; 
+    }
+    .slide-in { 
+      animation: slideIn 0.3s ease-out forwards; 
+    }
   </style>
 </head>
 <body>
@@ -53,7 +83,6 @@
     const Cpu = (p) => <Icon {...p}><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></Icon>;
     const ArrowLeft = (p) => <Icon {...p}><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></Icon>;
     const AlertTriangle = (p) => <Icon {...p}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></Icon>;
-    // 新增 ExternalLink 圖示
     const ExternalLink = (p) => <Icon {...p}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></Icon>;
 
     // ==========================================
@@ -63,7 +92,7 @@
       name: "Adult Artist",
       title: "翻譯家 / 內容創作者",
       bio: "哈囉！我是 Adult Artist，一名用翻譯幫助大家理解成人內容的藝術家。我深信每件作品背後都有其獨特的魅力與故事，透過精準且富有溫度的在地化翻譯，我希望能打破語言的隔閡，帶領大家更深入探索這些作品背後的藝術境界。",
-      skills: ["日中翻譯", "英中翻譯", "在地化 (Localization)", "文化解析", "內容創作"]
+      skills: ["日中翻譯", "英中翻譯", "在地化 (Localization)", "文化解析", "內容創作", "字體排印"]
     };
 
     const articlesData = [
@@ -76,7 +105,7 @@
     // 2. 文章內容組件
     // ==========================================
     const Article1Content = () => (
-      <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 animate-[fadeIn_0.7s_ease-out]">
+      <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 fade-in-slow">
         <p className="text-xl text-[#E8D8CE] font-medium leading-normal">
           在翻譯成人向作品時，許多人以為只要把台詞的字面意思翻出來就好。但實際上，語氣的拿捏才是讓讀者（或玩家）真正沉浸其中的靈魂所在。這篇文章將帶大家一窺我在處理不同角色與情境時的思考過程。
         </p>
@@ -106,7 +135,7 @@
     const Article2Content = () => {
       const [revealLevel, setRevealLevel] = useState(0);
       return (
-        <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 animate-[fadeIn_0.7s_ease-out]">
+        <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 fade-in-slow">
           <p className="text-xl text-[#E8D8CE] font-medium leading-normal">
             日文中有一類極具特色的詞彙系統——「擬聲語」與「擬態語」。它們在成人內容中出現的頻率極高，不僅能傳遞聲音，更能傳遞溫度、濕度與觸感。但要把這些詞彙翻成中文，往往讓人絞盡腦汁。
           </p>
@@ -143,7 +172,7 @@
                 </button>
               )}
               {revealLevel >= 1 && (
-                <div className="animate-[slideIn_0.3s_ease-out]">
+                <div className="slide-in">
                   <div className="p-4 bg-[#251A15] border-l-4 border-[#00E5FF] rounded-r-lg mb-4">
                     <p className="text-[#00E5FF] font-bold m-0">系統提示：你真的還要看嗎？這真的很主觀喔。</p>
                   </div>
@@ -155,7 +184,7 @@
                 </div>
               )}
               {revealLevel >= 2 && (
-                <div className="animate-[slideIn_0.3s_ease-out]">
+                <div className="slide-in">
                   <div className="p-4 bg-[#251A15] border-l-4 border-[#FF7A50] rounded-r-lg mb-4">
                     <p className="text-[#FF7A50] font-bold m-0">最後警告：你真的還要繼續往下看嗎？看完就回不去了喔！</p>
                   </div>
@@ -167,7 +196,7 @@
                 </div>
               )}
               {revealLevel === 3 && (
-                <div className="animate-[fadeIn_0.5s_ease-out] mt-6 pt-6 border-t border-[#3E2C24]">
+                <div className="fade-in mt-6 pt-6 border-t border-[#3E2C24]">
                   <p className="text-[#E8D8CE] font-bold text-lg mb-4">真正的翻譯奧義，其實是「放下字典，成為劇中人」。</p>
                   <p className="mb-4">當你徹底把自己的意識沉浸到那個場景中，感受角色的呼吸、動作的頻率與周圍的空氣。那時候，大腦自然就會浮現出最適合的中文詞彙。這時候的翻譯已經不是語言學，而是一種近乎通靈的「角色扮演」。</p>
                   <p className="text-[#00E5FF] italic">感謝你堅持點到最後，希望這份「不務正業」的心法對你有所啟發！</p>
@@ -182,7 +211,7 @@
     const Article3Content = () => {
       const [isConclusionRevealed, setIsConclusionRevealed] = useState(false);
       return (
-        <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 animate-[fadeIn_0.7s_ease-out]">
+        <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 fade-in-slow">
           <p className="text-xl text-[#E8D8CE] font-medium leading-normal">
             許多人好奇，翻譯一整部成人向作品到底需要花費多少時間？是只要把原文丟進翻譯軟體修一修就好了嗎？今天就來無私分享我的實際工作流程，以及那些陪伴我度過無數個熬夜趕稿夜晚的好用工具與秘密武器！
           </p>
@@ -207,7 +236,7 @@
           </p>
           <div onClick={() => setIsConclusionRevealed(true)} className={`w-full transition-all duration-1000 ease-in-out cursor-pointer ${isConclusionRevealed ? "bg-[#1A120E] border border-[#3E2C24] p-6 sm:p-8 rounded-xl shadow-[0_0_20px_rgba(0,229,255,0.05)]" : "h-40 bg-transparent border border-dashed border-transparent hover:border-[#3E2C24]/30 rounded-xl"}`}>
             {isConclusionRevealed ? (
-              <div className="animate-[fadeIn_0.7s_ease-out]">
+              <div className="fade-in-slow">
                 <h4 className="text-xl text-[#FF7A50] font-bold mb-4 flex items-center gap-2">
                   <AlertTriangle className="w-5 h-5" />
                   解碼成功：關於翻譯的本質
@@ -234,7 +263,7 @@
         }
       };
       return (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-[fadeIn_0.3s_ease-out]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 fade-in-fast">
           <button onClick={onBack} className="inline-flex items-center text-[#917E75] hover:text-[#00E5FF] transition-colors mb-8 group font-medium">
             <ArrowLeft className="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" /> 返回列表
           </button>
@@ -271,7 +300,7 @@
       const [currentView, setCurrentView] = useState('home');
 
       const renderHome = () => (
-        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 animate-[fadeIn_0.5s_ease-out]">
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 fade-in">
           <section className="relative rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(255,122,80,0.1)] border border-[#4A362D] group">
             <div className="absolute inset-0 bg-gradient-to-t from-[#251A15] via-[#251A15]/40 to-transparent z-10"></div>
             <img src="https://drive.google.com/thumbnail?id=1Xf1vkkC26rL4xf8og3ejL1tF0ELCUJlp&sz=w1366" alt="Adult Artist's Workspace" className="w-full h-[45vh] md:h-[65vh] object-cover object-center transform transition-transform duration-1000 group-hover:scale-105" />
@@ -403,20 +432,6 @@
     // 將 App 渲染到畫面上
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
-  </script>
-
-  <!-- Tailwind 動畫設定補充 -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          keyframes: {
-            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-            slideIn: { '0%': { opacity: '0', transform: 'translateY(-10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
-          }
-        }
-      }
-    }
   </script>
 </body>
 </html>

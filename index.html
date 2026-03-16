@@ -88,16 +88,15 @@
     const pinnedArticlesData = [
       { id: 'p1', title: "我為什麼開始翻譯成人影片？", date: "2026-03-16", excerpt: "我做日文翻譯十幾年了。身為一個異性戀直男，常遇到讓我哭笑不得的情況。直到有一次，我破天荒把手移開滑鼠，強迫自己不准快轉...", category: "翻譯初衷" },
       { id: 'p2', title: "誰說 A 片不用認真翻？帶你見識成人影片的「通靈」翻譯日常", date: "2026-03-10", excerpt: "大家對成人影片總是有種改不掉的偏見，覺得重點全在「肉搏動作戲」。至於前面的鋪陳、事後的溫存，甚至是過程中的對話，都被當作沒意義的過場...", category: "翻譯揭密" },
-      { id: 'p3', title: "從文本到藝術：我的翻譯工作流程大公開", date: "2026-01-18", excerpt: "許多人好奇翻譯一整本作品需要花費多少時間？今天就來開箱我常用的翻譯工具，以及從拿到原始檔到最終產出的完整工作流程。", category: "工作日常" }
+      { id: 'p3', title: "從文本到藝術：我的翻譯工作流程大公開", date: "2026-03-18", excerpt: "這篇文章我想聊聊我的影片翻譯作業流程，包含我使用的軟體名稱、邏輯架構等等。先聲明，我不是在教課，也沒打算寫工具書...", category: "工作日常" }
     ];
 
-    // ★ 近期文章資料庫：你可以隨便打亂順序，系統會自動幫你用日期排好！
     const recentArticlesData = [
-      { id: 'r1', title: "新作預告：本週即將發佈的翻譯作品", date: "2026-03-20", excerpt: "這週挑戰了一部設定非常特別的單體企劃片，光是名詞對照表就寫了整整兩頁。保證讓大家有全新的沉浸體驗！", category: "最新動態", url: "./article-template.html" },
-      { id: 'r2', title: "那些在翻譯過程中遇到的爆笑誤譯", date: "2026-03-12", excerpt: "有時候腦袋一當機，真的會翻出一些讓自己噴飯的句子。來分享幾個最近的翻譯笑話，博君一笑。", category: "翻譯日常", url: "./article-template.html" },
-      { id: 'r3', title: "【工具分享】我是如何管理大量翻譯詞彙表的？", date: "2026-02-28", excerpt: "常常翻譯到後面忘記前面女主角的專屬稱呼？分享我如何利用 Notion 建立一套超強的個人翻譯詞彙庫。", category: "翻譯工具", url: "./article-template.html" },
-      { id: 'r4', title: "淺談日本成人產業的地區方言差異", date: "2026-02-15", excerpt: "遇到關西腔的女優該怎麼翻？這篇文章帶你了解日本不同地區方言在成人影片中所帶來的獨特魅力與翻譯挑戰。", category: "文化解析", url: "./article-template.html" },
-      { id: 'r5', title: "我的第一部翻譯作品回顧：那些青澀與黑歷史", date: "2026-01-30", excerpt: "翻出自己好幾年前剛入行時的翻譯作品，實在是慘不忍睹。今天就來帶大家笑一下我當年犯過的各種低級錯誤。", category: "翻譯日常", url: "./article-template.html" }
+      { id: 'r1', title: "新作預告：本週即將發佈的翻譯作品", date: "2026-03-20", excerpt: "幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺都是幻覺", category: "最新動態", url: "./article-template.html" },
+      { id: 'r2', title: "那些在翻譯過程中遇到的爆笑誤譯", date: "2026-03-12", excerpt: "幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺都是幻覺", category: "翻譯日常", url: "./article-template.html" },
+      { id: 'r3', title: "【工具分享】我是如何管理大量翻譯詞彙表的？", date: "2026-02-28", excerpt: "幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺都是幻覺", category: "翻譯工具", url: "./article-template.html" },
+      { id: 'r4', title: "淺談日本成人產業的地區方言差異", date: "2026-02-15", excerpt: "幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺都是幻覺", category: "文化解析", url: "./article-template.html" },
+      { id: 'r5', title: "我的第一部翻譯作品回顧：那些青澀與黑歷史", date: "2026-01-30", excerpt: "幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺幻覺都是幻覺", category: "翻譯日常", url: "./article-template.html" }
     ];
 
     // 內部置頂文章組件
@@ -106,7 +105,7 @@
         <p className="text-xl text-[#E8D8CE] font-medium leading-normal">
           我做日文翻譯十幾年了。身為一個異性戀直男，常遇到讓我哭笑不得的情況。朋友或知道我職業的人，總愛用曖昧眼神調侃：「欸，那你平常看片，不就連他們在叫什麼、說什麼聽得一清二楚？這技能超爽的吧！」
         </p>
-        <p>說實話，我以前聽到這種話都在心裡翻白眼。拜託，誰看 A 片會在那邊跟你認真聽劇情？大家不都嘛是褲子一脫，把時間軸瘋狂往右拉，直接略過前面那些無謂的鋪陳，直接跳到最精采的動作戲。在那個只求趕快解決的階段，我還真的從來沒有靜下心來，聽聽裡面的角色到底在講什麼鬼。畢竟在活塞運動時，那些對白根本只是雜音。</p>
+        <p>說實話，我以前聽到這種話都在心裡翻白眼。拜託，誰看 A 片會在那邊跟你認真聽劇情？大家不都嘛是褲子一脫，把時間軸瘋狂往右拉，直接略過前面那些無謂的鋪陳，直接跳到最精采的動作戲。在那個只求趕快解決的階段，我還真的從來沒有靜下心來，聽聽裡面的角色到底在講什麼鬼。畢竟在活塞運動時，那些對白標誌只是雜音。</p>
         <p>直到有一次，我真的閒到發慌，無聊到極點。我點開一部片，破天荒把手移開滑鼠，強迫自己不准快轉。我就盯著畫面，腦子裡的日文雷達跟著啟動，自然而然把對白全部翻進腦海裡。</p>
         <h3 className="text-2xl font-bold text-[#FF7A50] mt-12 mb-6 border-l-4 border-[#00E5FF] pl-4">結果你猜怎麼樣？感覺簡直像是發現了新大陸！</h3>
         <p>當你完全聽懂他們在調情、在挑逗、在特定的劇情設定下講出的那些羞恥台詞時，那種前所未有的「帶入感」讓我整個人都陷進去了。我第一次發現，原來成人影片除了純粹的視覺刺激以外，當視覺、聽覺和情節結合在一起，那種迷人的程度，根本不是以前只看肉搏戲可以比擬的。</p>
@@ -145,13 +144,111 @@
       </article>
     );
 
-    const Article3Content = () => (
-      <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 fade-in-slow">
-        <p className="text-xl text-[#E8D8CE] font-medium leading-normal">
-          這篇文章即將發佈，敬請期待...
-        </p>
-      </article>
-    );
+    const Article3Content = () => {
+      const [step, setStep] = useState(0);
+
+      return (
+        <article className="prose prose-invert max-w-none text-[#C4B2A7] text-lg leading-relaxed space-y-8 fade-in-slow">
+          <p className="text-xl text-[#E8D8CE] font-medium leading-normal">
+            這篇文章我想聊聊我的影片翻譯作業流程，包含我使用的軟體名稱、邏輯架構等等。先聲明，我不是在教課，也沒打算寫工具書，所以我不會詳細列出軟體的取得管道或是一步步的操作教學。
+          </p>
+          <div className="bg-[#150F0D] border-l-4 border-[#FF7A50] p-6 italic rounded-r-lg shadow-inner">
+            這些軟硬體知識是我自己靠著摸索、想通、最後整理出一套屬於自己的流程，如果你真的想入這行，自行學習和理解是最基本的要求。
+          </div>
+
+          <h3 className="text-2xl font-bold text-[#F5ECE6] flex items-center gap-2 mt-12 mb-6">
+            <Cpu className="w-6 h-6 text-[#00E5FF]" /> 其實邏輯並不難，我主要使用到的工具組合如下：
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="bg-[#1A120E] border border-[#3E2C24] p-4 rounded-lg text-center">
+              <div className="text-[#917E75] text-xs font-mono mb-2">字幕製作軟體</div>
+              <div className="text-[#00E5FF] font-bold">Subtitle Edit</div>
+            </div>
+            <div className="bg-[#1A120E] border border-[#3E2C24] p-4 rounded-lg text-center">
+              <div className="text-[#917E75] text-xs font-mono mb-2">AV 特化開源 AI 工具</div>
+              <div className="text-[#00E5FF] font-bold">WhisperJAV</div>
+            </div>
+            <div className="bg-[#1A120E] border border-[#3E2C24] p-4 rounded-lg text-center">
+              <div className="text-[#917E75] text-xs font-mono mb-2">開發者工具</div>
+              <div className="text-[#00E5FF] font-bold">Google AI Studio</div>
+            </div>
+          </div>
+
+          <p>
+            首先是 <span className="font-bold text-[#F5ECE6]">Subtitle Edit</span>。我原本用 Aegisub 做字幕用了很多年，但它後來停止更新，導致很多新的影像格式跑不動或出問題。這套軟體最厲害的地方在於它整合了 OpenAI 的 Whisper 語音辨識，可以自動抓出大略的時間軸和逐字稿。
+          </p>
+
+          <p>
+            當辨識效果爛到讓人崩潰時，我的對策就是：「<span className="text-[#FF7A50] font-bold">以 AI 制 AI</span>」。我找來了日本成人影片特化的開源工具 <span className="font-bold text-[#F5ECE6]">WhisperJAV</span>。這個工具針對日本成人影片做了很多優化，最強的功能是它可以同時跑兩個不同的辨識模型，最後再進行對比整合。
+          </p>
+
+          <p>
+            如果以上方法都還是聽不清楚，那我就會動用 <span className="font-bold text-[#F5ECE6]">Google AI Studio</span>。透過它我可以避開網頁版嚴格的道德審查，強迫它幫我抓出我要的時間軸和逐字稿。
+          </p>
+
+          <div className="bg-[#362720]/30 p-8 rounded-2xl border border-dashed border-[#4A362D] text-center my-12">
+            <p className="m-0 italic text-[#C4B2A7]">
+              如果這三組 AI 加上我的人耳都還聽不出來……那真的沒救了，請直接開啟「通靈模式」，開始創作你的故事吧。
+            </p>
+          </div>
+
+          <p>
+            寫到這裡，其實都還只是在「抓逐字稿」而已。關於翻譯，只要能確保逐字稿的正確性，我就能翻得出來。這是我學習日文超過二十年、從事翻譯十幾年累積下來的自負。
+          </p>
+
+          <p className="text-center font-bold text-[#00E5FF] py-6 border-y border-[#3E2C24]">
+            我想用翻譯幫助大家「理解」成人內容。
+          </p>
+
+          {/* 三層式靈魂拷問結語互動區 */}
+          <section className="mt-16 space-y-4">
+            <div className="text-center text-[#917E75] text-sm mb-4 font-mono">// 靈魂拷問解鎖機制已啟動 //</div>
+            
+            <div className={`transition-all duration-500 overflow-hidden ${step >= 0 ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}`}>
+              <button 
+                onClick={() => setStep(1)}
+                className={`w-full p-4 rounded-lg border text-left flex items-center justify-between transition-all ${step === 0 ? 'border-[#00E5FF] bg-[#00E5FF]/5 text-[#00E5FF] hover:bg-[#00E5FF]/10' : 'border-[#3E2C24] text-[#917E75]'}`}
+                disabled={step !== 0}
+              >
+                <span>Q1：你是不是只想不勞而獲求片資源？</span>
+                {step === 0 && <ChevronDown className="w-5 h-5 animate-bounce" />}
+              </button>
+            </div>
+
+            <div className={`transition-all duration-500 overflow-hidden ${step >= 1 ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}`}>
+              <button 
+                onClick={() => setStep(2)}
+                className={`w-full p-4 rounded-lg border text-left flex items-center justify-between transition-all ${step === 1 ? 'border-[#FF7A50] bg-[#FF7A50]/5 text-[#FF7A50] hover:bg-[#FF7A50]/10' : 'border-[#3E2C24] text-[#917E75]'}`}
+                disabled={step !== 1}
+              >
+                <span>Q2: 你能理解翻譯背後付出的時間成本與磨練嗎？</span>
+                {step === 1 && <ChevronDown className="w-5 h-5 animate-bounce" />}
+              </button>
+            </div>
+
+            <div className={`transition-all duration-700 overflow-hidden ${step >= 2 ? 'max-h-64 opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
+              <div className="bg-[#1A120E] border-2 border-[#00E5FF] p-8 rounded-xl text-center shadow-[0_0_20px_rgba(0,229,255,0.1)]">
+                <h4 className="text-xl font-bold text-[#F5ECE6] mb-4">既然你明白了這份重量。</h4>
+                <p className="text-[#C4B2A7] mb-8">歡迎來到我的創作空間，與我深入交流。</p>
+                <a 
+                  href="https://portaly.cc/AdultArtist" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#00E5FF] text-[#110C0A] px-10 py-4 rounded-full font-extrabold hover:bg-white transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(0,229,255,0.5)]"
+                >
+                  前往我的 Portaly <ExternalLink className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <p className="text-[#917E75] italic text-center pt-8">
+            之後的文章，我會開始寫一些具體的作品。我們下篇見。
+          </p>
+        </article>
+      );
+    };
 
     // SPA 文章切換頁面 (只服務置頂文章)
     const ArticlePage = ({ article, onBack }) => {
@@ -194,16 +291,16 @@
     const App = () => {
       const [currentView, setCurrentView] = useState('home');
       
-      // ★ 新增：控制近期文章的分頁狀態
+      // 控制近期文章的分頁狀態
       const [recentPage, setRecentPage] = useState(1);
       const itemsPerPage = 3;
 
-      // ★ 新增：自動將近期文章「按照日期排序 (新 -> 舊)」
+      // 自動將近期文章「按照日期排序 (新 -> 舊)」
       const sortedRecentArticles = useMemo(() => {
         return [...recentArticlesData].sort((a, b) => new Date(b.date) - new Date(a.date));
       }, []);
 
-      // ★ 新增：計算總頁數，以及擷取「目前這頁」要顯示的 3 篇文章
+      // 計算總頁數，以及擷取「目前這頁」要顯示的 3 篇文章
       const totalPages = Math.ceil(sortedRecentArticles.length / itemsPerPage);
       const currentRecentArticles = sortedRecentArticles.slice(
         (recentPage - 1) * itemsPerPage, 
@@ -294,7 +391,6 @@
               <div className="h-px bg-[#3E2C24] flex-grow ml-4"></div>
             </div>
             
-            {/* 文章卡片網格 (只會顯示目前頁面的 3 篇) */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 min-h-[300px]">
               {currentRecentArticles.map((article) => (
                 <article key={article.id} className="bg-[#1A120E]/80 border border-[#3E2C24] rounded-xl p-6 flex flex-col h-full hover:border-[#00E5FF]/50 transition-all duration-300 group fade-in-fast">
@@ -311,7 +407,6 @@
               ))}
             </div>
 
-            {/* ★ 新增：分頁按鈕控制區塊 */}
             {totalPages > 1 && (
               <div className="flex justify-center items-center gap-6 mt-12 border-t border-[#3E2C24] pt-8">
                 <button 

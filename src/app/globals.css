@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-base-dark text-text-body font-sans;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* 自訂捲軸樣式 (可選) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-base-dark;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-base-light border border-accent-cyan/20 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent-cyan/50;
+}

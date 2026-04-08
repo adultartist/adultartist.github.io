@@ -1,0 +1,61 @@
+---
+title: "從文本到藝術：我的翻譯工作流程大公開"
+date: "2026-03-18"
+category: "工作日常"
+excerpt: "這篇文章我想聊聊我的影片翻譯作業流程，包含我使用的軟體名稱、邏輯架構等等。先聲明，我不是在教課，也沒打算寫工具書..."
+isPinned: true
+---
+
+<div className="text-xl text-[#E8D8CE] font-medium leading-normal mb-8">
+  這篇文章我想聊聊我的影片翻譯作業流程，包含我使用的軟體名稱、邏輯架構等等。先聲明，我不是在教課，也沒打算寫工具書，所以我不會詳細列出軟體的取得管道或是一步步的操作教學。
+</div>
+
+<div className="bg-[#150F0D] border-l-4 border-[#FF7A50] p-6 italic rounded-r-lg shadow-inner mb-12">
+  這些軟硬體知識是我自己靠著摸索、想通、最後整理出一套屬於自己的流程，如果你真的想入這行，自行學習和理解是最基本的要求。
+</div>
+
+<h3 className="text-2xl font-bold text-[#F5ECE6] flex items-center gap-2 mt-12 mb-6">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#00E5FF]"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg> 
+  其實邏輯並不難，我主要使用到的工具組合如下：
+</h3>
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 not-prose">
+  <div className="bg-[#1A120E] border border-[#3E2C24] p-4 rounded-lg text-center">
+    <div className="text-[#917E75] text-xs font-mono mb-2">字幕製作軟體</div>
+    <div className="text-[#00E5FF] font-bold">Subtitle Edit</div>
+  </div>
+  <div className="bg-[#1A120E] border border-[#3E2C24] p-4 rounded-lg text-center">
+    <div className="text-[#917E75] text-xs font-mono mb-2">AV 特化開源 AI 工具</div>
+    <div className="text-[#00E5FF] font-bold">WhisperJAV</div>
+  </div>
+  <div className="bg-[#1A120E] border border-[#3E2C24] p-4 rounded-lg text-center">
+    <div className="text-[#917E75] text-xs font-mono mb-2">開發者工具</div>
+    <div className="text-[#00E5FF] font-bold">Google AI Studio</div>
+  </div>
+</div>
+
+首先是 **Subtitle Edit**。我原本用 Aegisub 做字幕用了很多年，但它後來停止更新，導致很多新的影像格式跑不動或出問題。這套軟體最厲害的地方在於它整合了 OpenAI 的 Whisper 語音辨識，可以自動抓出大略的時間軸和逐字稿。
+
+當辨識效果爛到讓人崩潰時，我的對策就是：「<span className="text-[#FF7A50] font-bold">以 AI 制 AI</span>」。我找來了日本成人影片特化的開源工具 **WhisperJAV**。這個工具針對日本成人影片做了很多優化，最強的功能是它可以同時跑兩個不同的辨識模型，最後再進行對比整合。
+
+如果以上方法都還是聽不清楚，那我就會動用 **Google AI Studio**。透過它我可以避開網頁版嚴格的道德審查，強迫它幫我抓出我要的時間軸和逐字稿。
+
+<div className="bg-[#362720]/30 p-8 rounded-2xl border border-dashed border-[#4A362D] text-center my-12">
+  <div className="m-0 italic text-[#C4B2A7]">
+    如果這三組 AI 加上我的人耳都還聽不出來……那真的沒救了，請直接開啟「通靈模式」，開始創作你的故事吧。
+  </div>
+</div>
+
+寫到這裡，其實都還只是在「抓逐字稿」而已。關於翻譯，只要能確保逐字稿的正確性，我就能翻得出來。這是我學習日文超過二十年、從事翻譯十幾年累積下來的自負。
+
+<div className="text-center font-bold text-[#00E5FF] py-6 border-y border-[#3E2C24]">
+  我想用翻譯幫助大家「理解」成人內容。
+</div>
+
+{/* --- 注意：下面這個是你在 components/ui 裡面的靈魂拷問組件 --- */}
+
+<SoulSearching />
+
+<div className="text-[#917E75] italic text-center pt-8 border-t border-[#3E2C24] mt-12">
+  之後的文章，我會開始寫一些具體的作品。我們下篇見。
+</div>

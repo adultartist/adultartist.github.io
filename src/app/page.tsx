@@ -18,9 +18,16 @@ export default async function Home() {
       
       {/* Hero 區塊 */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-        {/* 背景裝飾 */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent-cyan/10 via-base-dark to-base-dark z-0"></div>
-        <div className="container relative z-10 mx-auto px-6 text-center">
+        {/* 背景圖 */}
+        <img 
+          src="/hero-bg.jpg" 
+          alt="Adult Artist Studio" 
+          className="absolute inset-0 w-full h-full object-cover opacity-60 z-0"
+        />
+        {/* 背景暗色漸層裝飾 (讓文字維持清楚可見) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-base-dark/30 via-base-dark/80 to-base-dark z-10"></div>
+        
+        <div className="container relative z-20 mx-auto px-6 text-center">
           <h1 className="text-5xl md:text-7xl font-bold font-mono text-text-title tracking-tighter mb-6">
             <DecodeText text="探索語言與藝術的交界" />
           </h1>
